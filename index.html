@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TAIWAN FREE PANEL</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ================= ROOT ================= */
+:root{
+  /* Base */
+  --bg:#f7f7fb;
+  --card:rgba(255,255,255,.72);
+  --border:rgba(0,0,0,.12);
+  --text:#0a0a0a;
+  --muted:#555;
+
+  /* Neon */
+  --neon-purple:#7c5cff;
+  --neon-purple2:#b34bff;
+  --neon-cyan:#00eaff;
+  --neon-pink:#ff4fd8;
+
+  /* Status */
+  --green:#00d46a;
+
+  --radius:22px;
+}
+
+/* ================= BASE ================= */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:"Prompt",sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(900px 500px at 10% 10%, rgba(124,92,255,.20), transparent 60%),
+    radial-gradient(800px 450px at 90% 15%, rgba(179,75,255,.18), transparent 60%),
+    radial-gradient(900px 550px at 55% 95%, rgba(0,234,255,.10), transparent 60%),
+    linear-gradient(180deg, #ffffff, var(--bg));
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* subtle grid */
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    linear-gradient(rgba(0,0,0,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,.03) 1px, transparent 1px);
+  background-size:48px 48px;
+  mask-image: radial-gradient(circle at 50% 22%, rgba(0,0,0,1), rgba(0,0,0,.3) 55%, rgba(0,0,0,0) 75%);
+}
+
+.wrapper{
+  display:grid;
+  place-items:center;
+  padding:34px 16px 42px;
+}
+
+/* ================= PANEL ================= */
+.panel{
+  width:min(1100px,96vw);
+  background:linear-gradient(180deg,rgba(255,255,255,.82),rgba(255,255,255,.55));
+  border:1px solid var(--border);
+  border-radius:28px;
+  backdrop-filter:blur(18px);
+  box-shadow:
+    0 40px 120px rgba(0,0,0,.14),
+    0 0 55px rgba(124,92,255,.16);
+  overflow:hidden;
+  position:relative;
+}
+
+.panel:after{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  pointer-events:none;
+  background:
+    radial-gradient(420px 220px at 15% 15%, rgba(124,92,255,.12), transparent 70%),
+    radial-gradient(420px 220px at 90% 20%, rgba(179,75,255,.10), transparent 70%);
+  filter: blur(1px);
+  opacity:.9;
+}
+
+/* ================= HEADER ================= */
+header{
+  position:relative;
+  z-index:1;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+  padding:22px 26px;
+  border-bottom:1px solid var(--border);
+}
+
+.brand{
+  display:flex;
+  gap:14px;
+  align-items:center;
+}
+
+.logo{
+  width:48px;
+  height:48px;
+  border-radius:16px;
+  display:grid;
+  place-items:center;
+  font-weight:900;
+  letter-spacing:1px;
+  color:white;
+  background:linear-gradient(135deg,var(--neon-purple),var(--neon-purple2));
+  box-shadow:
+    0 0 18px rgba(124,92,255,.55),
+    0 0 30px rgba(179,75,255,.35);
+}
+
+.brand h1{
+  margin:0;
+  font-size:18px;
+  font-weight:800;
+}
+
+.brand p{
+  margin:2px 0 0;
+  font-size:12px;
+  color:var(--muted);
+}
+
+.header-right{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:8px;
+  text-align:right;
+}
+
+.status-pill{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 14px;
+  border-radius:999px;
+  background:rgba(255,255,255,.9);
+  border:1px solid var(--border);
+  font-size:12px;
+}
+.status-pill span{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 10px rgba(0,212,106,.75);
+}
+
+.meta{
+  font-size:11px;
+  color:#666;
+  max-width:520px;
+}
+
+/* ================= CONTENT ================= */
+.content{
+  position:relative;
+  z-index:1;
+  padding:22px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+@media(max-width:900px){
+  header{flex-direction:column; align-items:flex-start}
+  .header-right{align-items:flex-start; text-align:left}
+  .grid{grid-template-columns:1fr}
+}
+
+/* ================= CARD ================= */
+.card{
+  position:relative;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:18px;
+  overflow:hidden;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.card:hover{
+  transform: translateY(-2px);
+  box-shadow:
+    0 24px 60px rgba(0,0,0,.12),
+    0 0 26px rgba(124,92,255,.12);
+}
+
+.card:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(260px 120px at 20% 20%, rgba(124,92,255,.14), transparent 60%),
+    radial-gradient(260px 120px at 90% 40%, rgba(0,234,255,.10), transparent 60%);
+  pointer-events:none;
+}
+
+.card-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:8px;
+  position:relative;
+}
+
+.card h3{
+  margin:0;
+  font-size:16px;
+  font-weight:800;
+  letter-spacing:.2px;
+}
+
+.badge{
+  font-size:11px;
+  padding:5px 10px;
+  border-radius:999px;
+  background:rgba(255,255,255,.92);
+  border:1px solid var(--border);
+}
+
+.desc{
+  font-size:13px;
+  color:var(--muted);
+  margin:6px 0 10px;
+  line-height:1.5;
+  position:relative;
+}
+
+.tags{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  position:relative;
+}
+
+.tag{
+  font-size:11px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:rgba(255,255,255,.92);
+  border:1px solid var(--border);
+}
+
+.bottom{
+  margin-top:14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:relative;
+}
+
+.state{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:12px;
+}
+.state i{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 10px rgba(0,212,106,.75);
+}
+
+.btn{
+  border:none;
+  cursor:pointer;
+  padding:9px 16px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:800;
+  color:white;
+  background:linear-gradient(135deg,var(--neon-purple),var(--neon-purple2));
+  box-shadow:
+    0 0 14px rgba(124,92,255,.45),
+    0 0 28px rgba(179,75,255,.30);
+  transition: transform .15s ease, filter .15s ease;
+}
+.btn:hover{ filter: brightness(1.05); transform: translateY(-1px); }
+.btn:active{ filter: brightness(.98); transform: translateY(0px); }
+
+/* ================= RED ZONE (CARD 2) ================= */
+.redzone:before{
+  background:
+    radial-gradient(260px 120px at 20% 20%, rgba(255,0,0,.18), transparent 60%),
+    radial-gradient(260px 120px at 90% 40%, rgba(255,80,80,.18), transparent 60%);
+}
+.badge.red,
+.tag.red{
+  color:#b00000;
+  border-color:rgba(255,0,0,.42);
+  background:rgba(255,0,0,.08);
+}
+.red-btn{
+  background:linear-gradient(135deg,#ff3b3b,#ff005d);
+  box-shadow:
+    0 0 16px rgba(255,0,0,.55),
+    0 0 30px rgba(255,0,80,.45);
+}
+
+/* ================= PURPLE ZONE (CARD 3) ================= */
+.purplezone:before{
+  background:
+    radial-gradient(300px 150px at 18% 18%, rgba(124,92,255,.24), transparent 60%),
+    radial-gradient(280px 140px at 88% 45%, rgba(179,75,255,.22), transparent 60%);
+}
+.badge.purple,
+.tag.purple{
+  color:#4b2bb8;
+  border-color:rgba(124,92,255,.45);
+  background:rgba(124,92,255,.10);
+}
+.purple-btn{
+  background:linear-gradient(135deg,#7c5cff,#b34bff);
+  box-shadow:
+    0 0 18px rgba(124,92,255,.60),
+    0 0 34px rgba(179,75,255,.45);
+}
+
+/* ================= FOOTER ================= */
+footer{
+  position:relative;
+  z-index:1;
+  text-align:center;
+  padding:14px;
+  font-size:11px;
+  color:#666;
+  border-top:1px solid var(--border);
+}
+
+/* ================= TOAST ================= */
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:18px;
+  transform:translateX(-50%);
+  padding:10px 14px;
+  border-radius:999px;
+  background:rgba(255,255,255,.88);
+  border:1px solid rgba(0,0,0,.12);
+  color:#111;
+  font-size:12px;
+  backdrop-filter:blur(12px);
+  box-shadow:0 22px 70px rgba(0,0,0,.18);
+  opacity:0;
+  pointer-events:none;
+  transition: opacity .18s ease, transform .18s ease;
+  z-index:9999;
+}
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(-6px);
+}
+</style>
+</head>
+
+<body>
+<div class="wrapper">
+<main class="panel">
+
+<header>
+  <div class="brand">
+    <div class="logo">TW</div>
+    <div>
+      <h1>TAIWAN FREE PANEL</h1>
+      <p>White • Black • Purple Neon</p>
+    </div>
+  </div>
+
+  <div class="header-right">
+    <div class="status-pill"><span></span> ระบบพร้อมใช้งาน</div>
+    <div class="meta">UI เดโมแนวพรีเมียม • โทนขาว/ดำ + ม่วงนีออน • แผงเดิมครบ 4 ช่อง</div>
+  </div>
+</header>
+
+<section class="content">
+  <div class="grid">
+
+    <!-- CARD 1 -->
+    <div class="card">
+      <div class="card-top">
+        <h3>TAIWAN FREE PANEL</h3>
+        <div class="badge">Taiwan</div>
+      </div>
+      <p class="desc">
+        แผงฟรีจากไต้หวัน เสถียร ใช้งานลื่น เหมาะกับทุกสาย  
+        เน้นความเรียบ เท่ และประสบการณ์ผู้ใช้
+      </p>
+      <div class="tags">
+        <div class="tag">Free</div>
+        <div class="tag">Stable</div>
+        <div class="tag">Taiwan Server</div>
+      </div>
+      <div class="bottom">
+        <div class="state"><i></i> สถานะ: พร้อม</div>
+        <button class="btn" data-file="taiwan-free-panel.zip">ดาวน์โหลด</button>
+      </div>
+    </div>
+
+    <!-- CARD 2 : RED ZONE -->
+    <div class="card redzone">
+      <div class="card-top">
+        <h3>RED ZONE – COPY DISCORD</h3>
+        <div class="badge red">Red Zone</div>
+      </div>
+      <p class="desc">
+        แผงโซนแดงระดับพรีเมียม  
+        สายคุม สายจัดการ สายระบบ — งานหนัก งานไว ต้องตัวนี้  
+        ของจริง สายโปรเลือกใช้
+      </p>
+      <div class="tags">
+        <div class="tag red">Red Zone</div>
+        <div class="tag red">Pro Control</div>
+        <div class="tag red">High Power</div>
+      </div>
+      <div class="bottom">
+        <div class="state"><i></i> สถานะ: พร้อม</div>
+        <button class="btn red-btn" data-file="red-zone-copy-discord.zip">ดาวน์โหลด</button>
+      </div>
+    </div>
+
+    <!-- CARD 3 : PURPLE ZONE (FiveM Demo - Legal) -->
+    <div class="card purplezone">
+      <div class="card-top">
+        <h3>FIVEM DEMO PANEL</h3>
+        <div class="badge purple">Purple Zone</div>
+      </div>
+      <p class="desc">
+        เดโมพาเนลสำหรับงาน FiveM แบบถูกกฎ  
+        รวมตัวอย่างทรัพยากร / UI / ไฟล์ทดสอบ เพื่อโชว์ระบบและงานดีไซน์  
+        โทนม่วงนีออน สายเท่ต้องมี
+      </p>
+      <div class="tags">
+        <div class="tag purple">Demo</div>
+        <div class="tag purple">Resources</div>
+        <div class="tag purple">UI Pack</div>
+      </div>
+      <div class="bottom">
+        <div class="state"><i></i> สถานะ: พร้อม</div>
+        <button class="btn purple-btn" data-file="fivem-demo-panel.zip">ดาวน์โหลด</button>
+      </div>
+    </div>
+
+    <!-- CARD 4 -->
+    <div class="card">
+      <div class="card-top">
+        <h3>TAIWAN PREMIUM FREE</h3>
+        <div class="badge">Premium</div>
+      </div>
+      <p class="desc">
+        คุณภาพระดับพรีเมียม เปิดให้ใช้ฟรี 100%  
+        โฟกัส “ลื่น + เสถียร + เท่” ให้ครบในแผงเดียว
+      </p>
+      <div class="tags">
+        <div class="tag">Premium</div>
+        <div class="tag">Free</div>
+        <div class="tag">Quality</div>
+      </div>
+      <div class="bottom">
+        <div class="state"><i></i> สถานะ: พร้อม</div>
+        <button class="btn" data-file="taiwan-premium-free.zip">ดาวน์โหลด</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  © 2026 TAIWAN FREE PANEL — White/Black Purple Neon UI
+</footer>
+
+</main>
+</div>
+
+<div class="toast" id="toast">เริ่มดาวน์โหลด (เดโม)</div>
+
+<script>
+/* เดโมปุ่มดาวน์โหลด: แค่โชว์แจ้งเตือน */
+const toast = document.getElementById('toast');
+function showToast(msg){
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(window.__t);
+  window.__t = setTimeout(()=> toast.classList.remove('show'), 1700);
+}
+
+document.querySelectorAll('button[data-file]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const file = btn.getAttribute('data-file');
+    showToast("กำลังดาวน์โหลด: " + file + " (เดโม)");
+    // ถ้ามีไฟล์จริง ให้เปิดลิงก์แบบนี้:
+    // window.location.href = "downloads/" + encodeURIComponent(file);
+  });
+});
+</script>
+</body>
+</html>
